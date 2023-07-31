@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Weather</title>
+    <script src="https://kit.fontawesome.com/c76c5a09b4.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 87vh;
+            width: 100%;
+            background: linear-gradient(0deg, #62b8f5, #4475ef);
+            height: 100vh;
+        }
+        body >h1{
+            text-align: center;
+            margin-top: 60px;
+            font-size: 3.5rem;
+            color: rgba(255, 255, 255, 0.848);
+        }
+        .container {
+            /* border: 2px solid red; */
+            border-radius: 10px;
+            width: 450px;
+            margin: 20px auto 0;
+            padding: 40px 35px;
+            background:  linear-gradient(135deg, #00feba, #5b548a  );
+
+        }
+        .clear{
+            background: linear-gradient(135deg, #ffd000af, #5b548a);
+        }
+        .cloud{
+            background: linear-gradient(135deg, #f3ce2daf, #1d82c6);
+        }
+        .haze{
+            background:  linear-gradient(135deg, #e1c546d6, #ffffffa6, #2a95dcc8 );
+        }
+        .rain{
+            background:  linear-gradient(135deg, #1797ece2, #ffffff71  );
+        }
+        .search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* border: 2px solid black; */
+        }
+
+        .search input {
+            padding: 12px;
+            width: 85%;
+            border-radius: 30px;
+            border: none;
+            background-color: #adc5d5;
+            font-size: 1.3rem;
+        }
+        .search input:focus{
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+        }
+        .search input::placeholder {
+            font-size: 1.2rem;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+        }
+        
+        .srch-div :hover{
+            background-color: rgba(127, 127, 127, 0.8);
+            border-radius: 50%;
+            color: aliceblue;
+        }
+        .btn {
+            color: rgb(123, 123, 123);
+            cursor: pointer;
+            padding: 22px 10px;
+        }
+        .weather{
+            /* border: 2px solid black; */
+           
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+           
+        }
+        .weather-icon{
+            width: 50%;
+            
+        }
+        .temp{
+            font-size: 3.25rem;
+        }
+        .type{
+            font-size: 1.75rem;
+            font-weight: light;
+            /* margin-left: -10px; */
+        }
+        .city{
+            font-size: 2rem;
+            font-weight: lighter;
+            margin-top: 10px;
+        }
+        .details{
+            /* border: 2px solid black; */
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .humidity{
+            /* border: 2px solid red; */
+            height: 100px;
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .humidity img{
+            height: 50%;
+        }
+        .wind{
+            /* border: 2px solid red; */
+            height: 100px;
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .wind img{
+            filter: invert(80%);
+            height: 40%;
+            margin-right: 5px;
+        }
+        .col{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .humidity-amount, .wind-speed{
+            font-size: 1.4rem;
+        }
+        .col > p{
+            font-weight: 600;
+            font-size: 1.72rem;
+        }
+        .col>h4{
+            font-size: 1.2rem;
+            
+        }
+        .error-div{
+            /* border: 2px solid red; */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .display{
+            display: none;
+
+        }
+        .error-div>p{
+            font-size: 1.75rem;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+        .error-div > img{
+            width: 70%;
+        }
+        .weather-info{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Live Weather Forecast</h1>
+    <div class="container">
+        
+        <div class="search">
+            <input type="text" placeholder="Search city name" spellcheck="false" id="input">
+            <div class="srch-div"><i class="fa-solid fa-magnifying-glass fa-xl btn"></i></div>
+        </div>
+        <div class="error-div display">
+            <img src="./images/404.png" alt="">
+            <p>Location Not Found</p>
+        </div>
+        <div class="weather-info">
+            <div class="weather">
+                <img src="./images/rain.png" class="weather-icon" alt="">
+                <h1 class="temp">22<sup>°C</sup></h1>
+                <h3 class="type">Cloud</h3>
+                <h2 class="city"><i class="fa-solid fa-location-dot" style="margin-right: 5px;"></i>Kolkata</h2>
+            </div>
+            <div class="details">
+                <div class="humidity">
+                    <img src="./images/humid2.png" alt="">
+                    <div class="col">
+                        <p class="humidity-amount">40%</p>
+                        <h4>Humidity</h4>
+                    </div>
+                </div>
+    
+                <div class="wind">
+                    <img src="./images/wind.png" alt="">
+                    <div class="col">
+                        <p class="wind-speed">20km/h</p>
+                        <h4>Wind Speed</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./main.js"></script>
+</body>
+
+</html>
